@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>{{ ui.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/deficiencies?language={{ language }}">{{ ui.view_deficiencies }}</a>
+                <a href="/medicines?language={{ language }}">{{ ui.view_medicines }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/analytics?language={{ language }}">Analytics</a>
+                <a href="/assistant?language={{ language }}">AI Assistant</a>
+                <a href="/batch-screening?language={{ language }}">Batch Screening</a>
+                <a href="/topic/prediction?language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/admin?language={{ language }}">{{ ui.admin_dashboard }}</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">{{ ui.eyebrow }}</p>
+                <h1>{{ ui.heading }}</h1>
+                <p class="lead">{{ ui.lead }}</p>
+                <p class="language-indicator">{{ ui.language }}: {{ languages[language] }}</p>
+            </div>
+            <div class="hero-aside">
+                <div class="hero-stat">
+                    <span class="hero-stat-label">Workflow</span>
+                    <strong>Login, upload, review, report</strong>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-label">Access</span>
+                    <strong>Authenticated session required</strong>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-label">Focus</span>
+                    <strong>Image-led nutrition screening demo</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel app-panel">
+            <div class="panel-heading">
+                <div>
+                    <p class="panel-kicker">New Analysis</p>
+                    <h2>{{ ui.heading }}</h2>
+                </div>
+                <p class="panel-summary">Enter patient details, choose the preferred language, and upload an image to generate a guided report.</p>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="upload-form">
+                <div class="field-group">
+                    <label for="language">{{ ui.language }}</label>
+                    <select id="language" name="language">
+                        {% for code, name in languages.items() %}
+                            <option value="{{ code }}" {% if code == language %}selected{% endif %}>{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="patient-fields">
+                    <label for="patient_name">{{ ui.patient_name }}</label>
+                    <input id="patient_name" name="patient_name" type="text" placeholder="{{ ui.patient_name }}">
+
+                    <label for="patient_age">{{ ui.patient_age }}</label>
+                    <input id="patient_age" name="patient_age" type="text" placeholder="{{ ui.patient_age }}">
+
+                    <label for="patient_gender">{{ ui.patient_gender }}</label>
+                    <select id="patient_gender" name="patient_gender">
+                        <option value="">-</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="patient_notes">{{ ui.patient_notes }}</label>
+                    <textarea id="patient_notes" name="patient_notes" rows="3" placeholder="{{ ui.patient_notes }}"></textarea>
+
+                    <label for="symptom_input">Typed Symptoms</label>
+                    <textarea id="symptom_input" name="symptom_input" rows="3" placeholder="fatigue, pale lips, dry eyes"></textarea>
+
+                    <label for="spoken_symptoms">Voice Transcript</label>
+                    <textarea id="spoken_symptoms" name="spoken_symptoms" rows="3" placeholder="Paste spoken symptoms or voice transcript"></textarea>
+
+                    <label for="location">Location / Region</label>
+                    <input id="location" name="location" type="text" placeholder="Village, district, city or region">
+
+                    <label for="screening_group">School / Group Name</label>
+                    <input id="screening_group" name="screening_group" type="text" placeholder="Class A, camp 1, village team">
+
+                    <label for="capture_frequency">Tracking Frequency</label>
+                    <select id="capture_frequency" name="capture_frequency">
+                        <option value="">Select</option>
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+
+                    <label for="posture_signal">Posture / Fatigue Clue</label>
+                    <select id="posture_signal" name="posture_signal">
+                        <option value="">Select</option>
+                        <option value="normal">Normal posture</option>
+                        <option value="slouched">Slouched / tired posture</option>
+                        <option value="weak">Weakness while standing</option>
+                    </select>
+                </div>
+
+                <label for="image" class="file-label">{{ ui.choose_image }}</label>
+                <input id="image" name="image" type="file" accept=".png,.jpg,.jpeg,.webp" required>
+                <button type="submit">{{ ui.analyze_image }}</button>
+            </form>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+        </section>
+
+        {% if result %}
+        <section class="results-grid">
+            <article class="card">
+                <h2>{{ ui.prediction }}</h2>
+                <p class="prediction">{{ result.label }}</p>
+                <p class="confidence">{{ ui.confidence }}: {{ result.confidence }}%</p>
+                <p>{{ result.summary }}</p>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>{{ ui.root_cause }}</h2>
+                <p>{{ result.root_cause }}</p>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>{{ ui.solutions }}</h2>
+                <ul>
+                    {% for item in result.solutions %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>{{ ui.medicines }}</h2>
+                <ul>
+                    {% for item in result.medicines %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card full-span">
+                <p>For illustrated medicine guidance, <a href="/topic/medicines?report_id={{ session.last_report or '' }}&language={{ language }}">{{ ui.view_topics }}</a>.</p>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>{{ ui.visual_indicators }}</h2>
+                <ul>
+                    {% for item in result.indicators %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>{{ ui.recommendations }}</h2>
+                <ul>
+                    {% for item in result.recommendations %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card important-card full-span metrics">
+                <h2>{{ ui.extracted_metrics }}</h2>
+                <ul>
+                    {% for key, value in result.metrics.items() %}
+                        <li><strong>{{ metric_labels.get(key, key.replace('_', ' ').title()) }}:</strong> {{ '%.2f'|format(value) }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card important-card">
+                <h2>Tracking Status</h2>
+                <p><strong>{{ trend_report.status|title }}</strong></p>
+                <p>{{ trend_report.message }}</p>
+                <p><strong>History count:</strong> {{ trend_report.history_count }}</p>
+            </article>
+
+            <article class="card important-card">
+                <h2>Explainable AI</h2>
+                <p><strong>Focus area:</strong> {{ explainability_report.highlighted_region }}</p>
+                <p>{{ explainability_report.method }}</p>
+                <img src="{{ overlay_image_url }}" alt="Explainability overlay" class="preview">
+            </article>
+
+            <article class="card important-card">
+                <h2>Enhanced Image</h2>
+                <p>{{ enhancement_report.note }}</p>
+                <img src="{{ enhanced_image_url }}" alt="Enhanced uploaded image" class="preview">
+            </article>
+
+            <article class="card important-card">
+                <h2>Image Quality</h2>
+                <ul>
+                    <li><strong>Quality:</strong> {{ quality_report.quality_label|title }}</li>
+                    <li><strong>Brightness:</strong> {{ quality_report.brightness }}</li>
+                    <li><strong>Contrast:</strong> {{ quality_report.contrast }}</li>
+                    <li><strong>Sharpness:</strong> {{ quality_report.sharpness }}</li>
+                </ul>
+            </article>
+
+            <article class="card important-card">
+                <h2>Multi-Modal Insight</h2>
+                <p><strong>Age group:</strong> {{ age_group|title }}</p>
+                <p><strong>Symptom alignment:</strong> {{ symptom_signal.alignment|title }}</p>
+                <p><strong>Matched clues:</strong> {{ symptom_signal.matched_keywords|join(', ') or 'None' }}</p>
+                <p><strong>Region insight:</strong> {{ geo_insight.regional_risk }}</p>
+            </article>
+
+            <article class="card important-card">
+                <h2>Advanced Safety</h2>
+                <p><strong>Deepfake screen:</strong> {{ deepfake_report.status|title }} ({{ deepfake_report.confidence }}%)</p>
+                <p><strong>Early detection:</strong> {{ early_signal.interpretation|title }} (score {{ early_signal.risk_score }})</p>
+                <ul>
+                    {% for note in safety_notes %}
+                        <li>{{ note }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card report-card full-span">
+                <h2>{{ ui.report_title }}</h2>
+                <p>{{ ui.report_message }}</p>
+                <a href="{{ report_url }}" class="download-report">{{ ui.download_report }}</a>
+            </article>
+
+            <article class="card">
+                <h2>{{ ui.uploaded_image }}</h2>
+                <img src="{{ image_url }}" alt="Uploaded sample" class="preview">
+            </article>
+
+            <article class="card">
+                <h2>{{ ui.patient_details }}</h2>
+                <ul>
+                    {% for key, value in result.patient_info.items() if value %}
+                        <li><strong>{{ key.replace('_', ' ').title() }}:</strong> {{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

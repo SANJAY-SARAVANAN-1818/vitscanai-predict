@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ topic.label }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/deficiencies?language={{ language }}">{{ ui.view_deficiencies }}</a>
+                <a href="/topic/prediction?language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/login?language={{ language }}">{{ ui.login }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">{{ topic.label }}</p>
+            <h1>{{ topic.label }}</h1>
+            <p class="lead">Detailed symptoms, medicines, and solutions for this vitamin deficiency.</p>
+        </section>
+
+        <section class="results-grid">
+            <article class="card important-card full-span">
+                <h2>Symptoms</h2>
+                <ul>
+                    {% for item in topic.symptoms %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>Medicines</h2>
+                <ul>
+                    {% for item in topic.medicines %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+
+            <article class="card important-card full-span">
+                <h2>Solutions</h2>
+                <ul>
+                    {% for item in topic.solutions %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        </section>
+
+        {% if medicine_images %}
+        <section class="reference-section">
+            <div class="section-heading">
+                <p class="eyebrow">Medicine Images</p>
+                <h2>Medicines Images One By One</h2>
+                <p class="lead section-copy">
+                    Each deficiency medicine is shown as a separate image card so you can review and download it individually.
+                </p>
+            </div>
+
+            <section class="results-grid reference-grid">
+                {% for image in medicine_images %}
+                <article class="card important-card reference-card">
+                    <img
+                        src="{{ url_for('medicine_image', slug=image.slug) }}"
+                        alt="{{ image.medicine_name }}"
+                        class="reference-preview"
+                    >
+                    <p class="reference-part">Medicine</p>
+                    <h2>{{ image.medicine_name }}</h2>
+                    <p class="reference-meta">{{ image.deficiency }}</p>
+                    <p>{{ image.detail }}</p>
+                    <a
+                        href="{{ url_for('medicine_image', slug=image.slug) }}"
+                        class="download-report"
+                        download="{{ image.slug }}.svg"
+                    >
+                        Download Medicine Image
+                    </a>
+                </article>
+                {% endfor %}
+            </section>
+        </section>
+        {% endif %}
+
+        {% if symptom_images %}
+        <section class="reference-section">
+            <div class="section-heading">
+                <p class="eyebrow">Symptom Images</p>
+                <h2>Download Symptom Images Part By Part</h2>
+                <p class="lead section-copy">
+                    Each symptom image is separated by individual body part so you can view and download them one by one.
+                </p>
+            </div>
+
+            <section class="results-grid reference-grid">
+                {% for image in symptom_images %}
+                <article class="card important-card reference-card">
+                    <img
+                        src="{{ url_for('symptom_image', slug=image.slug) }}"
+                        alt="{{ image.title }}"
+                        class="reference-preview"
+                    >
+                    <p class="reference-part">{{ image.part }}</p>
+                    <h2>{{ image.title }}</h2>
+                    <p class="reference-meta">{{ image.deficiency }}</p>
+                    <p>{{ image.detail }}</p>
+                    <a
+                        href="{{ url_for('symptom_image', slug=image.slug) }}"
+                        class="download-report"
+                        download="{{ image.slug }}.svg"
+                    >
+                        Download Image
+                    </a>
+                </article>
+                {% endfor %}
+            </section>
+        </section>
+        {% endif %}
+
+        <section class="panel section-controls">
+            <a href="/deficiencies?language={{ language }}" class="download-report">Back to Vitamin Deficiencies</a>
+        </section>
+    </main>
+</body>
+</html>

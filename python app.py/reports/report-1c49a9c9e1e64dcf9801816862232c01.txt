@@ -1,0 +1,35 @@
+Detailed Report
+
+Prediction: No strong visual deficiency signal
+Confidence: 55%
+
+The uploaded image does not show a strong match to the built-in visual deficiency heuristics.
+
+Patient Details:
+- Patient Name: sanjay
+- Patient Age: 17
+- Patient Gender: Male
+
+Root Cause:
+No strong visual nutrition deficiency signal detected.
+
+Solutions:
+- Keep a balanced diet with vegetables, fruits, protein, and hydration.
+- Monitor symptoms and consult a clinician if concerned.
+- Use proper tests rather than relying on images alone.
+
+Visual Indicators:
+- Central facial area appears lighter than surrounding region.
+
+Recommendations:
+- The image does not strongly suggest deficiency, but symptoms still matter.
+- Maintain a balanced diet with fruits, vegetables, protein, and hydration.
+- Use lab tests for reliable confirmation.
+
+Extracted Metrics:
+- Brightness: 115.08
+- Contrast: 27.31
+- Red Ratio: 1.24
+- Yellow Ratio: 1.42
+- Saturation: 94.79
+- Pallor Index: 7.84

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ ui.login }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav auth-nav">
+            <a class="brand" href="/login?language={{ language }}">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <span class="nav-badge">Secure Access</span>
+            </div>
+        </nav>
+
+        <section class="auth-layout">
+            <article class="auth-showcase">
+                <p class="eyebrow">{{ ui.admin_portal }}</p>
+                <h1>{{ ui.login }}</h1>
+                <p class="lead">{{ ui.sign_in }} to access image analysis, reports, symptom references, and the admin dashboard.</p>
+
+                <div class="auth-points">
+                    <div class="auth-point">
+                        <span class="auth-point-label">Protected</span>
+                        <strong>All pages open only after login</strong>
+                    </div>
+                    <div class="auth-point">
+                        <span class="auth-point-label">Inside</span>
+                        <strong>Analysis, reports, uploads, and deficiency topics</strong>
+                    </div>
+                    <div class="auth-point">
+                        <span class="auth-point-label">Flow</span>
+                        <strong>Sign in once and continue where you left off</strong>
+                    </div>
+                </div>
+            </article>
+
+            <section class="panel auth-panel">
+                <div class="panel-heading panel-heading-tight">
+                    <div>
+                        <p class="panel-kicker">Authentication</p>
+                        <h2>{{ ui.sign_in }}</h2>
+                    </div>
+                    <p class="panel-summary">Use your admin credentials to unlock the application workspace.</p>
+                </div>
+
+                <form method="post" class="upload-form login-form">
+                    <input type="hidden" name="next" value="{{ next_url or '' }}">
+                    <div class="field-group">
+                        <label for="username">{{ ui.username }}</label>
+                        <input id="username" name="username" type="text" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="password">{{ ui.password }}</label>
+                        <input id="password" name="password" type="password" required>
+                    </div>
+                    <button type="submit">{{ ui.sign_in }}</button>
+                </form>
+
+                <p class="login-link">
+                    <a href="https://www.medicalnewstoday.com/articles/signs-of-vitamin-deficiency" target="_blank" rel="noopener noreferrer">
+                        Learn signs of vitamin deficiency
+                    </a>
+                </p>
+
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+            </section>
+        </section>
+    </main>
+</body>
+</html>

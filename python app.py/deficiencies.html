@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ ui.view_deficiencies }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/topic/prediction?language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/login?language={{ language }}">{{ ui.login }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">{{ ui.view_deficiencies }}</p>
+            <h1>{{ ui.view_deficiencies }}</h1>
+            <p class="lead">Explore common vitamin deficiency topics, symptoms, medicines, and practical solutions.</p>
+        </section>
+
+        <section class="results-grid">
+            {% for topic in topics %}
+            <article class="card important-card">
+                <h2>{{ topic.label }}</h2>
+                <p><strong>Symptoms:</strong> {{ topic.symptoms | join(', ') }}</p>
+                <p><strong>Medicines:</strong> {{ topic.medicines | join(', ') }}</p>
+                <p><strong>Solutions:</strong> {{ topic.solutions | join(', ') }}</p>
+                <a href="/deficiencies/{{ topic.slug }}?language={{ language }}" class="download-report">View Topic</a>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>

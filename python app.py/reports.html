@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ ui.view_reports }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/deficiencies?language={{ language }}">{{ ui.view_deficiencies }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/analytics?language={{ language }}">Analytics</a>
+                <a href="/topic/prediction?language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">{{ ui.view_reports }}</p>
+            <h1>{{ ui.report_title }}</h1>
+            <p class="lead">Browse generated reports for the uploaded patient cases.</p>
+        </section>
+
+        <section class="results-grid">
+            {% for report in reports %}
+            <article class="card important-card">
+                <h2>{{ report.label }}</h2>
+                <p><strong>{{ ui.confidence }}:</strong> {{ report.confidence }}%</p>
+                <p><strong>{{ ui.patient_name }}:</strong> {{ report.patient_info.patient_name or '-' }}</p>
+                <p><strong>{{ ui.root_cause }}:</strong> {{ report.root_cause }}</p>
+                <p><strong>Trend:</strong> {{ report.trend_report.status|title if report.trend_report else 'Baseline' }}</p>
+                <p><strong>Quality:</strong> {{ report.quality_report.quality_label|title if report.quality_report else 'Unknown' }}</p>
+                {% if report.solutions %}
+                <p><strong>{{ ui.solutions }}:</strong> {{ report.solutions[0] }}</p>
+                {% endif %}
+                <a href="/reports/{{ report.report_name }}" class="download-report">{{ ui.download_report }}</a>
+            </article>
+            {% else %}
+            <article class="card">
+                <p>No reports available yet.</p>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>

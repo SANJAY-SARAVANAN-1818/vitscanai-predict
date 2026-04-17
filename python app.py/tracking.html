@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | Tracking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/analytics?language={{ language }}">Analytics</a>
+                <a href="/assistant?language={{ language }}">AI Assistant</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">Time-Based Tracking</p>
+                <h1>Patient Progress Monitoring</h1>
+                <p class="lead">Review repeated uploads and track whether a deficiency pattern is improving, worsening, stable, or shifting over time.</p>
+            </div>
+        </section>
+
+        <section class="results-grid">
+            {% for item in timelines %}
+            <article class="card important-card">
+                <h2>{{ item.patient_name }}</h2>
+                <p><strong>Trend:</strong> {{ item.trend_status|title }}</p>
+                <p><strong>Latest label:</strong> {{ item.latest_label }}</p>
+                <p><strong>Age group:</strong> {{ item.age_group|title }}</p>
+                <p><strong>Records:</strong> {{ item.count }}</p>
+            </article>
+            {% else %}
+            <article class="card">
+                <p>No repeated patient histories are available yet. Submit multiple analyses for the same patient name to start tracking.</p>
+            </article>
+            {% endfor %}
+        </section>
+
+        <section class="panel app-panel">
+            <div class="panel-heading panel-heading-tight">
+                <div>
+                    <p class="panel-kicker">Recent Records</p>
+                    <h2>Latest Monitoring Entries</h2>
+                </div>
+            </div>
+            <div class="results-grid">
+                {% for report in reports %}
+                <article class="card">
+                    <h2>{{ report.patient_info.patient_name or 'Unknown patient' }}</h2>
+                    <p><strong>Prediction:</strong> {{ report.label }}</p>
+                    <p><strong>Trend:</strong> {{ report.get('trend_report', {}).get('status', 'baseline')|title }}</p>
+                    <p><strong>Time:</strong> {{ report.timestamp }}</p>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>

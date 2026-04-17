@@ -1,0 +1,633 @@
+:root {
+    --bg: #07141f;
+    --panel: rgba(248, 250, 252, 0.96);
+    --ink: #102132;
+    --muted: #5b6c7d;
+    --accent: #f26b3a;
+    --accent-dark: #ca4f25;
+    --line: rgba(242, 107, 58, 0.16);
+    --card-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+    --teal: #2fc4b2;
+    --navy: #0d2438;
+    --cream: #fff3e9;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", "Trebuchet MS", sans-serif;
+    color: #eef6f7;
+    background:
+        radial-gradient(circle at top left, rgba(242, 107, 58, 0.2), transparent 24%),
+        radial-gradient(circle at 85% 20%, rgba(47, 196, 178, 0.18), transparent 18%),
+        linear-gradient(180deg, #07141f 0%, #0d2438 52%, #122f46 100%);
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(242, 107, 58, 0.14), transparent 18%),
+        radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.08), transparent 15%),
+        radial-gradient(circle at 70% 80%, rgba(47, 196, 178, 0.08), transparent 20%);
+    pointer-events: none;
+}
+
+.shell {
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 48px 0 64px;
+}
+
+.hero {
+    margin-bottom: 28px;
+}
+
+.hero-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.hero-copy {
+    text-align: left;
+}
+
+.hero-copy .lead,
+.hero-copy .language-indicator {
+    margin-left: 0;
+}
+
+.hero-aside {
+    display: grid;
+    gap: 14px;
+}
+
+.hero-stat,
+.auth-point {
+    padding: 18px 20px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.hero-stat strong,
+.auth-point strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 1rem;
+    line-height: 1.45;
+}
+
+.hero-stat-label,
+.auth-point-label,
+.panel-kicker {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    color: #ffc9b5;
+}
+
+.language-indicator {
+    margin: 14px auto 0;
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e9fbfa;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #ffc9b5;
+    font-size: 0.8rem;
+}
+
+h1,
+h2 {
+    margin: 0;
+}
+
+h1 {
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    margin-top: 12px;
+}
+
+.lead,
+.note {
+    width: min(700px, 100%);
+    margin: 16px auto 0;
+    line-height: 1.6;
+}
+
+.note {
+    background: rgba(242, 107, 58, 0.1);
+    border: 1px solid rgba(242, 107, 58, 0.22);
+    padding: 14px 18px;
+    border-radius: 18px;
+}
+
+.topnav a {
+    color: #07222f;
+    background: rgba(255, 255, 255, 0.92);
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 10px 18px;
+    border-radius: 999px;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.topnav a:hover {
+    background: rgba(29, 209, 179, 0.18);
+    color: #051d24;
+    transform: translateY(-1px);
+}
+
+.panel,
+.card {
+    background: var(--panel);
+    border: 1px solid rgba(242, 107, 58, 0.12);
+    box-shadow: var(--card-shadow);
+    border-radius: 24px;
+}
+
+.panel {
+    padding: 24px;
+}
+
+.upload-form {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.file-label,
+button,
+.upload-form select {
+    padding: 14px 22px;
+    border-radius: 999px;
+    border: none;
+    font-size: 1rem;
+}
+
+.topnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.topnav .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    color: white;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    font-weight: 800;
+}
+
+.auth-nav .brand {
+    color: #fff7f3;
+}
+
+.logo-mark {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, var(--accent), var(--teal));
+    color: white;
+    font-size: 1.1rem;
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
+}
+
+.brand-text {
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.topnav a {
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    padding: 10px 18px;
+    border-radius: 999px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.topnav a:hover {
+    background: rgba(242, 107, 58, 0.12);
+}
+
+.nav-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff7f3;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-weight: 600;
+}
+
+@media (max-width: 720px) {
+    .topnav {
+        justify-content: center;
+    }
+    .brand {
+        margin-bottom: 8px;
+    }
+}
+
+.upload-form select {
+    border: 1px solid var(--line);
+    background: white;
+    min-width: 180px;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 180px;
+}
+
+.field-group label {
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.patient-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(180px, 1fr));
+    gap: 12px;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(242, 107, 58, 0.06), rgba(47, 196, 178, 0.06));
+    padding: 18px;
+    border-radius: 22px;
+}
+
+.patient-fields textarea,
+.patient-fields input,
+.patient-fields select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: white;
+    color: var(--navy);
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.patient-fields textarea::placeholder,
+.patient-fields input::placeholder {
+    color: var(--muted);
+    opacity: 0.8;
+}
+
+.field-group input,
+.field-group textarea,
+.field-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: white;
+    color: var(--navy);
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.file-label {
+    background: #efe4d1;
+}
+
+input[type="file"] {
+    max-width: 100%;
+}
+
+button {
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+button:hover,
+.download-report:hover {
+    background: var(--accent-dark);
+    transform: translateY(-1px);
+}
+
+.login-form {
+    flex-direction: column;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+.auth-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+    gap: 24px;
+    align-items: stretch;
+}
+
+.auth-showcase {
+    padding: 34px;
+    border-radius: 28px;
+    background:
+        linear-gradient(160deg, rgba(242, 107, 58, 0.18), rgba(47, 196, 178, 0.14)),
+        rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.auth-showcase .lead {
+    margin-left: 0;
+}
+
+.auth-points {
+    display: grid;
+    gap: 14px;
+    margin-top: 24px;
+}
+
+.auth-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 0.9fr);
+    gap: 18px;
+    align-items: end;
+    margin-bottom: 22px;
+}
+
+.panel-heading-tight {
+    grid-template-columns: 1fr;
+}
+
+.panel-heading h2 {
+    margin-top: 6px;
+    color: var(--navy);
+}
+
+.panel-summary {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.app-panel {
+    padding: 28px;
+}
+
+.dashboard-grid .card {
+    background: linear-gradient(180deg, rgba(242, 107, 58, 0.08), rgba(255, 255, 255, 0.96));
+}
+
+.admin-table-panel {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+}
+
+.data-table th {
+    background: rgba(242, 107, 58, 0.1);
+    text-align: left;
+}
+
+.active-port {
+    font-weight: 700;
+    color: var(--accent-dark);
+}
+
+.download-report {
+    display: inline-block;
+    padding: 14px 22px;
+    margin-top: 12px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+}
+
+.error {
+    text-align: center;
+    color: #9b1c1c;
+    margin-top: 16px;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+    align-items: stretch;
+}
+
+.reference-section {
+    margin-top: 36px;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-copy {
+    max-width: 760px;
+}
+
+.reference-grid {
+    margin-top: 0;
+}
+
+.card {
+    padding: 26px;
+    border-radius: 26px;
+}
+
+.card h2 {
+    margin-bottom: 14px;
+    color: #0b3f43;
+    letter-spacing: 0.01em;
+}
+
+.card.full-span {
+    grid-column: 1 / -1;
+}
+
+.card.important-card {
+    border: 1px solid rgba(242, 107, 58, 0.24);
+    background: rgba(255, 255, 255, 0.98);
+}
+
+.card.important-card h2 {
+    color: #0d3f48;
+}
+
+.card.important-card p,
+.card.important-card li {
+    color: #102f35;
+}
+
+.report-card {
+    background: linear-gradient(180deg, rgba(242, 107, 58, 0.12), rgba(255, 255, 255, 0.95));
+    border-color: rgba(242, 107, 58, 0.26);
+}
+
+.report-card h2 {
+    color: #0b3f43;
+}
+
+.download-report {
+    display: inline-block;
+    padding: 14px 22px;
+    margin-top: 12px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+}
+
+.download-report:hover {
+    background: var(--accent-dark);
+}
+
+.prediction {
+    font-size: 1.5rem;
+    color: var(--accent-dark);
+    margin: 12px 0 6px;
+}
+
+.confidence {
+    color: var(--muted);
+}
+
+.preview {
+    width: 100%;
+    border-radius: 18px;
+    object-fit: cover;
+}
+
+.medicine-image {
+    width: 100%;
+    max-height: 220px;
+    border-radius: 18px;
+    object-fit: cover;
+    margin-bottom: 16px;
+}
+
+.reference-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.reference-preview {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, #fffaf3 0%, #f1e1d1 100%);
+}
+
+.reference-part {
+    display: inline-flex;
+    align-self: flex-start;
+    margin: 0;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(242, 107, 58, 0.12);
+    color: #0d4c49;
+    font-weight: 600;
+}
+
+.login-link a {
+    color: var(--accent-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+.reference-meta {
+    margin: 0;
+    color: var(--muted);
+    font-style: italic;
+}
+
+ul {
+    margin: 14px 0 0;
+    padding-left: 18px;
+    line-height: 1.6;
+}
+
+.metrics li {
+    list-style: none;
+    padding-left: 0;
+}
+
+@media (max-width: 680px) {
+    .shell {
+        width: min(100% - 20px, 100%);
+        padding-top: 28px;
+    }
+
+    .hero-panel,
+    .auth-layout,
+    .panel-heading,
+    .patient-fields {
+        grid-template-columns: 1fr;
+    }
+
+    .panel,
+    .card {
+        border-radius: 20px;
+    }
+}

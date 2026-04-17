@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ section_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/deficiencies?language={{ language }}">{{ ui.view_deficiencies }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/analytics?language={{ language }}">Analytics</a>
+                <a href="/assistant?language={{ language }}">AI Assistant</a>
+                <a href="/topic/prediction?report_id={{ report.id }}&language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">{{ section_title }}</p>
+            <h1>{{ section_title }}</h1>
+            <p class="lead">{{ section_description }}</p>
+        </section>
+
+        <section class="panel">
+            {% if section == 'prediction' %}
+            <article class="card important-card">
+                <h2>{{ ui.prediction }}</h2>
+                <p class="prediction">{{ report.label }}</p>
+                <p class="confidence">{{ ui.confidence }}: {{ report.confidence }}%</p>
+                <p>{{ report.summary }}</p>
+            </article>
+            <article class="card important-card">
+                <h2>{{ ui.root_cause }}</h2>
+                <p>{{ report.root_cause }}</p>
+            </article>
+            <article class="card important-card">
+                <h2>{{ ui.solutions }}</h2>
+                <ul>
+                    {% for item in report.solutions %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card important-card">
+                <h2>Tracking + Quality</h2>
+                <p><strong>Trend:</strong> {{ report.trend_report.status|title }}</p>
+                <p>{{ report.trend_report.message }}</p>
+                <p><strong>Image quality:</strong> {{ report.quality_report.quality_label|title }}</p>
+                <p><strong>Age group:</strong> {{ report.age_group|title }}</p>
+            </article>
+            <article class="card important-card">
+                <h2>Explainability</h2>
+                <p><strong>Highlighted area:</strong> {{ report.explainability_report.highlighted_region }}</p>
+                {% if report.overlay_image_name %}
+                    <img src="/uploads/{{ report.overlay_image_name }}" alt="Explainability overlay" class="preview">
+                {% endif %}
+            </article>
+            <article class="card important-card">
+                <h2>Enhanced Image</h2>
+                <p>{{ report.enhancement_report.note if report.enhancement_report else 'Image enhancement unavailable.' }}</p>
+                {% if report.enhanced_image_name %}
+                    <img src="/uploads/{{ report.enhanced_image_name }}" alt="Enhanced uploaded image" class="preview">
+                {% endif %}
+            </article>
+            <article class="card important-card">
+                <h2>Multi-Modal Context</h2>
+                <p><strong>Typed / voice symptom alignment:</strong> {{ report.symptom_signal.alignment|title if report.symptom_signal else 'Low' }}</p>
+                <p><strong>Matched clues:</strong> {{ report.symptom_signal.matched_keywords|join(', ') if report.symptom_signal and report.symptom_signal.matched_keywords else 'None' }}</p>
+                <p><strong>Geo insight:</strong> {{ report.geo_insight.regional_risk if report.geo_insight else 'Not available' }}</p>
+                <p><strong>Posture signal:</strong> {{ report.posture_signal|title if report.posture_signal else 'Not provided' }}</p>
+            </article>
+            <article class="card important-card">
+                <h2>Safety + Authenticity</h2>
+                <p><strong>Deepfake check:</strong> {{ report.deepfake_report.status|title if report.deepfake_report else 'Unknown' }}</p>
+                <p><strong>Confidence:</strong> {{ report.deepfake_report.confidence if report.deepfake_report else 'N/A' }}%</p>
+                <p><strong>Early detection:</strong> {{ report.early_signal.interpretation|title if report.early_signal else 'Not available' }}</p>
+                <ul>
+                    {% for item in report.safety_notes or [] %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            {% elif section == 'medicines' %}
+            <article class="card important-card full-span">
+                <h2>{{ ui.medicines }}</h2>
+                <p>Upload a photo of the medicine or supplement for each recommendation below.</p>
+            </article>
+            {% for item in report.medicines %}
+            <article class="card important-card">
+                <h2>{{ item }}</h2>
+                <p>{{ report.recommendations[loop.index0] if loop.index0 < report.recommendations|length else '' }}</p>
+                {% set photo = report.medicine_photos.get(item) %}
+                {% if photo %}
+                    <img src="/uploads/medicine-photos/{{ photo }}" alt="Uploaded medicine photo for {{ item }}" class="medicine-image">
+                {% endif %}
+                <form action="/upload-medicine-photo" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="report_id" value="{{ report.id }}">
+                    <input type="hidden" name="medicine_label" value="{{ item }}">
+                    <input type="hidden" name="language" value="{{ language }}">
+                    <label for="medicine_photo_{{ loop.index0 }}">{{ ui.choose_image }}</label>
+                    <input id="medicine_photo_{{ loop.index0 }}" name="medicine_photo" type="file" accept="image/*" capture="environment" required>
+                    <button type="submit">Upload Photo</button>
+                </form>
+            </article>
+            {% endfor %}
+            {% elif section == 'recommendations' %}
+            <article class="card important-card full-span">
+                <h2>{{ ui.recommendations }}</h2>
+                <ul>
+                    {% for item in report.recommendations %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            {% elif section == 'visual_indicators' %}
+            <article class="card important-card full-span">
+                <h2>{{ ui.visual_indicators }}</h2>
+                <ul>
+                    {% for item in report.indicators %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            {% elif section == 'extracted_metrics' %}
+            <article class="card important-card full-span metrics">
+                <h2>{{ ui.extracted_metrics }}</h2>
+                <ul>
+                    {% for key, value in report.metrics.items() %}
+                        <li><strong>{{ key.replace('_', ' ').title() }}:</strong> {{ '%.2f'|format(value) }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            {% endif %}
+        </section>
+
+        <section class="panel section-controls">
+            {% if prev_url %}
+                <a href="{{ prev_url }}" class="download-report">Previous</a>
+            {% endif %}
+            {% if next_url %}
+                <a href="{{ next_url }}" class="download-report">Next</a>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>

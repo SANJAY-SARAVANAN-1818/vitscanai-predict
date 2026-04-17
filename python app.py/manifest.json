@@ -1,0 +1,9 @@
+{
+  "name": "Vitscan AI",
+  "short_name": "Vitscan",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#08151b",
+  "theme_color": "#1dd1b3",
+  "orientation": "portrait"
+}

@@ -1,0 +1,37 @@
+விரிவான அறிக்கை
+
+முன்னறிவு: Vitamin B12 deficiency
+நம்பிக்கை: 65%
+
+The image shows red and inflamed color patterns that may align with Vitamin B12-related signs.
+
+நோயாளர் விவரங்கள்:
+- Patient Name: sanjay
+- Patient Age: 18
+- Patient Gender: Male
+
+மூல காரணம்:
+Possible inadequate vitamin B12 intake or absorption.
+
+தீர்வுகள்:
+- Include eggs, dairy, fish, and fortified cereals in the diet.
+- Monitor neurological symptoms such as tingling or fatigue.
+- Avoid self-diagnosis from an image alone.
+
+காட்சி குறியீடுகள்:
+- Central facial area appears lighter than surrounding region.
+- Higher red emphasis and contrast may align with inflamed mouth or tongue regions.
+- Yellow-red imbalance may indicate gum or skin irritation patterns.
+
+பரிந்துரைகள்:
+- Discuss B12 testing with a clinician, especially if fatigue or numbness is present.
+- Common sources include eggs, dairy, fish, and fortified cereals.
+- Avoid self-diagnosing from images alone.
+
+பெறப்பட்ட அளவுருக்கள்:
+- Brightness: 135.68
+- Contrast: 54.68
+- Red Ratio: 1.48
+- Yellow Ratio: 1.80
+- Saturation: 147.58
+- Pallor Index: 56.12

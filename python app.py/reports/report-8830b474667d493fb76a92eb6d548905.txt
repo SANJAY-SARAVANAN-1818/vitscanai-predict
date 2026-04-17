@@ -1,0 +1,35 @@
+Detailed Report
+
+Prediction: Vitamin A deficiency
+Confidence: 61%
+
+The image looks lower in contrast and saturation, which can match dry or dull visual symptoms.
+
+Patient Details:
+- Patient Name: sanjay
+- Patient Age: 18
+- Patient Gender: Male
+
+Root Cause:
+Possible insufficient vitamin A from diet or poor nutrition.
+
+Solutions:
+- Add carrots, sweet potatoes, leafy greens, and eggs to meals.
+- If dry skin or vision changes persist, seek medical advice.
+- Maintain a balanced diet with colorful vegetables.
+
+Visual Indicators:
+- Lower contrast and lower saturation can reflect dull or dry-looking skin.
+
+Recommendations:
+- Include carrots, sweet potatoes, leafy greens, and eggs in your diet.
+- If night-vision issues or severe dryness are present, seek medical advice.
+- A photo cannot confirm deficiency on its own.
+
+Extracted Metrics:
+- Brightness: 99.69
+- Contrast: 29.96
+- Red Ratio: 1.04
+- Yellow Ratio: 1.07
+- Saturation: 56.69
+- Pallor Index: 2.52

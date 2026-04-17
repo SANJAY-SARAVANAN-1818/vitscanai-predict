@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ ui.admin_dashboard }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/deficiencies?language={{ language }}">{{ ui.view_deficiencies }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/analytics?language={{ language }}">Analytics</a>
+                <a href="/assistant?language={{ language }}">AI Assistant</a>
+                <a href="/batch-screening?language={{ language }}">Batch</a>
+                <a href="/topic/prediction?language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">{{ ui.admin_portal }}</p>
+                <h1>{{ ui.admin_dashboard }}</h1>
+                <p class="lead">Review uploaded images, generated reports, patient details, and available ports.</p>
+            </div>
+            <div class="hero-aside">
+                <div class="hero-stat">
+                    <span class="hero-stat-label">Reports</span>
+                    <strong>{{ reports|length }} stored analyses</strong>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-label">Uploads</span>
+                    <strong>{{ uploads|length }} secured images</strong>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-label">Session</span>
+                    <strong>Admin access active</strong>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-grid dashboard-grid">
+            <article class="card">
+                <h2>{{ ui.view_reports }}</h2>
+                <p>{{ reports|length }} records</p>
+            </article>
+            <article class="card">
+                <h2>{{ ui.view_uploads }}</h2>
+                <p>{{ uploads|length }} images uploaded</p>
+            </article>
+            <article class="card">
+                <h2>Server Ports</h2>
+                <ul>
+                    {% for port in ports %}
+                        <li{% if port == current_port %} class="active-port"{% endif %}>{{ port }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        </section>
+
+        <section class="panel admin-table-panel">
+            <h2>{{ ui.view_reports }}</h2>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>{{ ui.patient_name }}</th>
+                        <th>{{ ui.confidence }}</th>
+                        <th>{{ ui.root_cause }}</th>
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for report in reports %}
+                        <tr>
+                            <td>{{ report.id }}</td>
+                            <td>{{ report.get('patient_info', {}).get('patient_name', '-') }}</td>
+                            <td>{{ report.confidence }}%</td>
+                            <td>{{ report.root_cause }}</td>
+                            <td><a href="/reports/{{ report.report_name }}">Download</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,22 @@
+Informe Detallado
+
+Predicción: Deficiencia de vitamina B12
+Confianza: 65%
+
+La imagen muestra patrones rojos e inflamados que pueden coincidir con signos relacionados con la vitamina B12.
+
+Indicadores Visuales:
+- Un mayor énfasis en el rojo y el contraste puede coincidir con regiones inflamadas de la boca o la lengua.
+
+Recomendaciones:
+- Consulta una prueba de B12 con un clínico, especialmente si hay fatiga o entumecimiento.
+- Fuentes comunes incluyen huevos, lácteos, pescado y cereales fortificados.
+- Evita el autodiagnóstico solo con imágenes.
+
+Métricas Extraídas:
+- Brillo: 103.88
+- Contraste: 66.63
+- Proporción Roja: 1.19
+- Proporción Amarilla: 1.40
+- Saturación: 128.22
+- Índice de Palidez: -2.12

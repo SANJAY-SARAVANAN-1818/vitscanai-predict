@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | AI Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">Local AI Chatbot</p>
+            <h1>Nutrition Guidance Assistant</h1>
+            <p class="lead">Ask about vitamins, food suggestions, reports, tracking, or image quality. This assistant works locally inside the app.</p>
+        </section>
+
+        <section class="panel app-panel">
+            <form method="post" class="upload-form login-form">
+                <input type="hidden" name="language" value="{{ language }}">
+                <div class="field-group">
+                    <label for="question">Question</label>
+                    <textarea id="question" name="question" rows="5" placeholder="What to eat for Vitamin D?">{{ question }}</textarea>
+                </div>
+                <button type="submit">Ask Assistant</button>
+            </form>
+        </section>
+
+        {% if answer %}
+        <section class="results-grid">
+            <article class="card important-card full-span">
+                <h2>Assistant Answer</h2>
+                <p><strong>Topic:</strong> {{ answer.topic|title }}</p>
+                <p>{{ answer.answer }}</p>
+            </article>
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

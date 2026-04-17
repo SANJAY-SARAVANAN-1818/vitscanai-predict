@@ -1,0 +1,22 @@
+Informe Detallado
+
+Predicción: Sin señal visual fuerte de deficiencia
+Confianza: 55%
+
+La imagen subida no muestra una coincidencia fuerte con las heurísticas visuales de deficiencia.
+
+Indicadores Visuales:
+- El análisis no encontró una anomalía visual fuerte en la región de imagen extraída.
+
+Recomendaciones:
+- La imagen no sugiere fuertemente una deficiencia, pero los síntomas siguen siendo importantes.
+- Mantén una dieta equilibrada con frutas, verduras, proteínas e hidratación.
+- Usa pruebas de laboratorio para una confirmación confiable.
+
+Métricas Extraídas:
+- Brillo: 76.00
+- Contraste: 0.00
+- Proporción Roja: 3.34
+- Proporción Amarilla: 254000000.00
+- Saturación: 255.00
+- Índice de Palidez: 0.00

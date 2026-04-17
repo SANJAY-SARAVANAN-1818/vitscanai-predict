@@ -1,0 +1,37 @@
+Detailed Report
+
+Prediction: No strong visual deficiency signal
+Confidence: 75%
+
+The uploaded image does not show a strong match to the built-in visual deficiency heuristics.
+
+Patient Details:
+
+Root Cause:
+No strong visual nutrition deficiency signal detected.
+
+Solutions:
+- Keep a balanced diet with vegetables, fruits, protein, and hydration.
+- Monitor symptoms and consult a clinician if concerned.
+- Use proper tests rather than relying on images alone.
+
+Medicine Recommendations:
+- No specific supplement is recommended based on the image alone.
+- Focus on a balanced diet and speak with a clinician before supplementing.
+- Use lab tests to decide whether any supplements are necessary.
+
+Visual Indicators:
+- Central facial area appears lighter than surrounding region.
+
+Recommendations:
+- The image does not strongly suggest deficiency, but symptoms still matter.
+- Maintain a balanced diet with fruits, vegetables, protein, and hydration.
+- Use lab tests for reliable confirmation.
+
+Extracted Metrics:
+- Brightness: 104.64
+- Contrast: 99.47
+- Red Ratio: 1.07
+- Yellow Ratio: 1.20
+- Saturation: 113.82
+- Pallor Index: 23.71

@@ -1,0 +1,34 @@
+Informe Detallado
+
+Predicción: Deficiencia de vitamina B12
+Confianza: 65%
+
+La imagen muestra patrones rojos e inflamados que pueden coincidir con signos relacionados con la vitamina B12.
+
+Detalles del Paciente:
+
+Causa Raíz:
+Possible inadequate vitamin B12 intake or absorption.
+
+Soluciones:
+- Include eggs, dairy, fish, and fortified cereals in the diet.
+- Monitor neurological symptoms such as tingling or fatigue.
+- Avoid self-diagnosis from an image alone.
+
+Indicadores Visuales:
+- La zona central del rostro parece más clara que la región circundante.
+- Un mayor énfasis en el rojo y el contraste puede coincidir con regiones inflamadas de la boca o la lengua.
+- El desequilibrio amarillo-rojo puede indicar patrones de irritación de encías o piel.
+
+Recomendaciones:
+- Consulta una prueba de B12 con un clínico, especialmente si hay fatiga o entumecimiento.
+- Fuentes comunes incluyen huevos, lácteos, pescado y cereales fortificados.
+- Evita el autodiagnóstico solo con imágenes.
+
+Métricas Extraídas:
+- Brillo: 135.68
+- Contraste: 54.68
+- Proporción Roja: 1.48
+- Proporción Amarilla: 1.80
+- Saturación: 147.58
+- Índice de Palidez: 56.12

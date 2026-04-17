@@ -1,0 +1,32 @@
+Detailed Report
+
+Prediction: Vitamin A deficiency
+Confidence: 55%
+
+demo
+
+Patient Details:
+- Patient Name: Test
+
+Root Cause:
+demo root
+
+Solutions:
+- eat foods
+
+Medicine Recommendations:
+- c
+
+Visual Indicators:
+- a
+
+Recommendations:
+- b
+
+Extracted Metrics:
+- Brightness: 1.00
+- Contrast: 2.00
+- Red Ratio: 1.10
+- Yellow Ratio: 1.20
+- Saturation: 50.00
+- Pallor Index: 0.00

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">Dashboard Analytics</p>
+            <h1>Population and Deficiency Trends</h1>
+            <p class="lead">Prototype analytics for deficiency trends, age groups, image quality, and grouped screenings.</p>
+        </section>
+
+        <section class="results-grid dashboard-grid">
+            <article class="card"><h2>Total Reports</h2><p>{{ analytics.total_reports }}</p></article>
+            <article class="card"><h2>Top Deficiency</h2><p>{{ analytics.top_labels[0][0] if analytics.top_labels else 'N/A' }}</p></article>
+            <article class="card"><h2>Most Common Trend</h2><p>{{ analytics.trend_counts[0][0]|title if analytics.trend_counts else 'N/A' }}</p></article>
+        </section>
+
+        <section class="results-grid">
+            <article class="card important-card full-span">
+                <h2>Deficiency Distribution</h2>
+                <ul>
+                    {% for label, count in analytics.top_labels %}
+                    <li><strong>{{ label }}:</strong> {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card important-card">
+                <h2>Age Groups</h2>
+                <ul>
+                    {% for label, count in analytics.age_groups %}
+                    <li><strong>{{ label|title }}:</strong> {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card important-card">
+                <h2>Image Quality</h2>
+                <ul>
+                    {% for label, count in analytics.quality_counts %}
+                    <li><strong>{{ label|title }}:</strong> {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card important-card">
+                <h2>Trend Status</h2>
+                <ul>
+                    {% for label, count in analytics.trend_counts %}
+                    <li><strong>{{ label|title }}:</strong> {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card important-card">
+                <h2>Geo Insights</h2>
+                <ul>
+                    {% for label, count in analytics.locations %}
+                    <li><strong>{{ label }}:</strong> {{ count }}</li>
+                    {% else %}
+                    <li>No location data yet.</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card important-card full-span">
+                <h2>Group Screening Summary</h2>
+                <ul>
+                    {% for label, count in analytics.groups %}
+                    <li><strong>{{ label }}:</strong> {{ count }}</li>
+                    {% else %}
+                    <li>No school or camp groups recorded yet.</li>
+                    {% endfor %}
+                </ul>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

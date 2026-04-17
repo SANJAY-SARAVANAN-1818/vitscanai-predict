@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | Batch Screening</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/analytics?language={{ language }}">Analytics</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">Group Screening</p>
+            <h1>Batch Analysis for Schools and Camps</h1>
+            <p class="lead">Upload multiple student or participant images and get a class-wise screening summary.</p>
+        </section>
+
+        <section class="panel app-panel">
+            <form method="post" enctype="multipart/form-data" class="upload-form login-form">
+                <input type="hidden" name="language" value="{{ language }}">
+                <div class="field-group">
+                    <label for="screening_group">Group Name</label>
+                    <input id="screening_group" name="screening_group" type="text" value="{{ group_name or '' }}" placeholder="Class 10A or Village Camp">
+                </div>
+                <div class="field-group">
+                    <label for="images">Images</label>
+                    <input id="images" name="images" type="file" accept=".png,.jpg,.jpeg,.webp" multiple required>
+                </div>
+                <button type="submit">Run Batch Screening</button>
+            </form>
+        </section>
+
+        {% if batch_results %}
+        <section class="results-grid">
+            {% for item in batch_results %}
+            <article class="card important-card">
+                <img src="{{ item.image_url }}" alt="{{ item.filename }}" class="preview">
+                <h2>{{ item.filename }}</h2>
+                <p><strong>Group:</strong> {{ item.group_name or 'Ungrouped' }}</p>
+                <p><strong>Prediction:</strong> {{ item.label }}</p>
+                <p><strong>Confidence:</strong> {{ item.confidence }}%</p>
+                <p>{{ item.summary }}</p>
+            </article>
+            {% endfor %}
+        </section>
+        {% endif %}
+    </main>
+</body>
+</html>

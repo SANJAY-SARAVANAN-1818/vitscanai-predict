@@ -1,0 +1,22 @@
+Detailed Report
+
+Prediction: No strong visual deficiency signal
+Confidence: 55%
+
+The uploaded image does not show a strong match to the built-in visual deficiency heuristics.
+
+Visual Indicators:
+- The analysis did not find a strong visual abnormality in the extracted image region.
+
+Recommendations:
+- The image does not strongly suggest deficiency, but symptoms still matter.
+- Maintain a balanced diet with fruits, vegetables, protein, and hydration.
+- Use lab tests for reliable confirmation.
+
+Extracted Metrics:
+- Brightness: 76.00
+- Contrast: 0.00
+- Red Ratio: 3.34
+- Yellow Ratio: 254000000.00
+- Saturation: 255.00
+- Pallor Index: 0.00

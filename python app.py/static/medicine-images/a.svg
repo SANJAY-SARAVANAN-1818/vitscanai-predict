@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" rx="24" ry="24" fill="#fff7e5"/>
+  <rect x="64" y="60" width="272" height="180" rx="22" ry="22" fill="#f0a64c" opacity="0.94"/>
+  <text x="200" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="40" font-weight="700" fill="#ffffff">A</text>
+  <text x="200" y="180" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#ffffff">Beta-Carotene</text>
+</svg>

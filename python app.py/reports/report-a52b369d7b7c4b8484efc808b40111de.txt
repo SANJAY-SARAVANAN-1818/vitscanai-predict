@@ -1,0 +1,22 @@
+Detailed Report
+
+Prediction: Vitamin B12 deficiency
+Confidence: 65%
+
+The image shows red and inflamed color patterns that may align with Vitamin B12-related signs.
+
+Visual Indicators:
+- Higher red emphasis and contrast may align with inflamed mouth or tongue regions.
+
+Recommendations:
+- Discuss B12 testing with a clinician, especially if fatigue or numbness is present.
+- Common sources include eggs, dairy, fish, and fortified cereals.
+- Avoid self-diagnosing from images alone.
+
+Extracted Metrics:
+- Brightness: 142.19
+- Contrast: 50.17
+- Red Ratio: 1.28
+- Yellow Ratio: 1.25
+- Saturation: 95.84
+- Pallor Index: 3.25

@@ -1,0 +1,40 @@
+വിവരമുള്ള റിപ്പോർട്ട്
+
+കണക്കാക്കൽ: Vitamin B12 deficiency
+വിശ്വാസം: 65%
+
+The image shows red and inflamed color patterns that may align with Vitamin B12-related signs.
+
+രോഗിയുടെ വിവരങ്ങൾ:
+- Patient Name: sanjay
+- Patient Age: 18
+- Patient Gender: Male
+
+പ്രധാന കാരണം:
+Possible inadequate vitamin B12 intake or absorption.
+
+പരിഹാരങ്ങൾ:
+- Include eggs, dairy, fish, and fortified cereals in the diet.
+- Monitor neurological symptoms such as tingling or fatigue.
+- Avoid self-diagnosis from an image alone.
+
+Medicine Recommendations:
+- Discuss cyanocobalamin or methylcobalamin supplementation with a clinician.
+- B12 injections may be recommended if absorption is impaired.
+- Check if a complete B-complex is appropriate for your situation.
+
+ദൃശ്യ സൂചികകൾ:
+- Higher red emphasis and contrast may align with inflamed mouth or tongue regions.
+
+സൂചനകൾ:
+- Discuss B12 testing with a clinician, especially if fatigue or numbness is present.
+- Common sources include eggs, dairy, fish, and fortified cereals.
+- Avoid self-diagnosing from images alone.
+
+എടുക്കപ്പെട്ട മെട്രിക്കുകൾ:
+- Brightness: 103.88
+- Contrast: 66.63
+- Red Ratio: 1.19
+- Yellow Ratio: 1.40
+- Saturation: 128.22
+- Pallor Index: -2.12

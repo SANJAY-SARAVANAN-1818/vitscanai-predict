@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ ui.view_medicines }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/uploaded-images?language={{ language }}">{{ ui.view_uploads }}</a>
+                <a href="/medicines?language={{ language }}">{{ ui.view_medicines }}</a>
+                <a href="/login?language={{ language }}">{{ ui.login }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">{{ ui.view_medicines }}</p>
+            <h1>{{ ui.view_medicines }}</h1>
+            <p class="lead">Browse medicine guidance and illustration cards for each deficiency category.</p>
+        </section>
+
+        <section class="results-grid">
+            {% for item in medicine_items %}
+            <article class="card important-card">
+                <img src="{{ item.image_url }}" alt="{{ item.label }}" class="medicine-image">
+                <h2>{{ item.label }}</h2>
+                <p>{{ item.summary }}</p>
+                <h3>{{ ui.medicines }}</h3>
+                <ul>
+                    {% for med in item.medicines %}
+                    <li>{{ med }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>{{ ui.recommendations }}</h3>
+                <ul>
+                    {% for rec in item.recommendations %}
+                    <li>{{ rec }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            {% else %}
+            <article class="card">
+                <p>No medicine recommendations are available yet.</p>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>

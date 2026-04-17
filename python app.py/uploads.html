@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="{{ language or 'en' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1dd1b3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Vitscan AI">
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <title>Vitscan AI | {{ ui.view_uploads }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="shell">
+        <nav class="topnav">
+            <a class="brand" href="/">
+                <span class="logo-mark" aria-hidden="true">V</span>
+                <span class="brand-text">Vitscan AI</span>
+            </a>
+            <div class="nav-links">
+                <a href="/">{{ ui.home }}</a>
+                <a href="/reports?language={{ language }}">{{ ui.view_reports }}</a>
+                <a href="/deficiencies?language={{ language }}">{{ ui.view_deficiencies }}</a>
+                <a href="/tracking?language={{ language }}">Tracking</a>
+                <a href="/batch-screening?language={{ language }}">Batch Screening</a>
+                <a href="/topic/prediction?language={{ language }}">{{ ui.view_topics }}</a>
+                <a href="/logout?language={{ language }}">{{ ui.logout }}</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <p class="eyebrow">{{ ui.view_uploads }}</p>
+            <h1>{{ ui.view_uploads }}</h1>
+            <p class="lead">Browse previously uploaded images for analysis review.</p>
+        </section>
+
+        <section class="results-grid">
+            {% for image in images %}
+            <article class="card">
+                <h2>{{ image }}</h2>
+                <img src="/uploads/{{ image }}" alt="Uploaded image" class="preview">
+            </article>
+            {% else %}
+            <article class="card">
+                <p>No uploaded images available yet.</p>
+            </article>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>
